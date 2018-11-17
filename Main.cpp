@@ -1,17 +1,19 @@
-#include "wx/wx.h"
+#include "wx\wx.h"
 #include "MyFrame.h"
 
-class MainApp : public wxApp
+class MyApp : public wxApp
 {
 public:
 	virtual bool OnInit();
 };
 
-DECLARE_APP(MainApp)
-IMPLEMENT_APP(MainApp)
+IMPLEMENT_APP(MyApp)
+DECLARE_APP(MyApp)
 
-bool MainApp::OnInit() {
-	MyFrame *frame = new MyFrame(wxT("Blocks Destroyer"));
+bool MyApp::OnInit()
+{
+	MyFrame *frame = new MyFrame("Blocks Destroyer");
 	frame->Show(true);
+
 	return true;
 }

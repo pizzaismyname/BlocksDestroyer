@@ -121,10 +121,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="HtpWindow.cpp" />
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="MainMenuWindow.cpp" />
     <ClCompile Include="MyFrame.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="HtpWindow.h" />
+    <ClInclude Include="MainMenuWindow.h" />
     <ClInclude Include="MyFrame.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

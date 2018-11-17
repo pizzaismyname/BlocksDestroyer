@@ -1,12 +1,20 @@
 #pragma once
-#include "wx/wx.h"
+#include "wx\wx.h"
+
+class MainMenuWindow;
+class HtpWindow;
+
 class MyFrame :
 	public wxFrame
 {
+private:
+	MainMenuWindow *mainMenuWindow;
+	HtpWindow *htpWindow;
+	wxBoxSizer *boxSizer;
 public:
 	MyFrame(const wxString &title);
-	void OnButtonClick(wxCommandEvent &event);
-private:
-	DECLARE_EVENT_TABLE()
+	void showHtpWindow();
+	void showMainMenuWindow();
+	void fitWindowSize();
 };
 
