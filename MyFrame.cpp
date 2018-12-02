@@ -1,6 +1,7 @@
 #include "MyFrame.h"
 #include "MainMenuWindow.h"
 #include "HtpWindow.h"
+#include "GameWindow.h"
 
 
 MyFrame::MyFrame(const wxString &title)
@@ -16,6 +17,11 @@ MyFrame::MyFrame(const wxString &title)
 	this->htpWindow->Show(false);
 	this->boxSizer->Add(htpWindow, 1, wxEXPAND, 0);
 
+	this->gameWindow = new GameWindow(this);
+	this->gameWindow->Show(false);
+	this->boxSizer->Add(gameWindow, 1, wxEXPAND, 0);
+
+
 	SetSizer(boxSizer);
 	showMainMenuWindow();
 }
@@ -24,6 +30,15 @@ void MyFrame::showMainMenuWindow()
 {
 	this->mainMenuWindow->Show(true);
 	this->htpWindow->Show(false);
+	this->gameWindow->Show(false);
+	fitWindowSize();
+}
+
+void MyFrame::showGameWindow()
+{
+	this->gameWindow->Show(true);
+	this->mainMenuWindow->Show(false);
+	this->htpWindow->Show(false);
 	fitWindowSize();
 }
 
@@ -31,6 +46,7 @@ void MyFrame::showHtpWindow()
 {
 	this->htpWindow->Show(true);
 	this->mainMenuWindow->Show(false);
+	this->gameWindow->Show(false);
 	this->SetSize(wxSize(1000, 700));
 	fitWindowSize();
 }

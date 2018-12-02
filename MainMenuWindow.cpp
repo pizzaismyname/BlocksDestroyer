@@ -40,7 +40,7 @@ void MainMenuWindow::loadBackgroundBitmap()
 
 void MainMenuWindow::OnButtonClick(wxCommandEvent &event)
 {
-	wxMessageBox(wxT("Event Klik Terjadi pada Tombol Play"));
+	parent->showGameWindow();
 }
 
 void MainMenuWindow::OnButtonClick2(wxCommandEvent &event)
