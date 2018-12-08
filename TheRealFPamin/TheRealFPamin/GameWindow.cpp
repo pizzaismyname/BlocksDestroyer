@@ -42,7 +42,6 @@ GameWindow::~GameWindow()
 
 void GameWindow::onTimer(wxTimerEvent & event)
 {
-	
 
 	if (ball->isLaunched()) {
 		ball->move(this);
@@ -109,9 +108,24 @@ void GameWindow::onKeyUp(wxKeyEvent & event)
 
 
 void GameWindow::gameIsOver() {
+	if (board->isAlive()) {
+		board->setHealth(board->getHealth() - 1);
+		resetBallBoard();
+	}
+	
 	gameOver = true;
-	wxMessageBox(wxT("hahahaha"));
 }
 void GameWindow::gameIsNotOver() {
+
 	gameOver = false;
 }
+
+void GameWindow::resetBallBoard()
+{
+	ball->unLaunch();
+	ball->setX(700);
+	ball->setY(700);
+	board->setX(700);
+	board->setY(680);
+}
+

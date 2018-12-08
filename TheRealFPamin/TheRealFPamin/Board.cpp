@@ -11,6 +11,24 @@ Board::Board(int x, int y, int w, int h, vector<Object*> *allObj)
 	dirX = 0;
 }
 
+int Board::getHealth()
+{
+	return health;
+}
+
+void Board::setHealth(int health)
+{
+	this->health = health;
+}
+
+bool Board::isAlive()
+{	
+	if (health <= 0) {
+		return false;
+	}
+	return true;
+}
+
 
 
 

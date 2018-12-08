@@ -2,7 +2,7 @@
 #include "wx\wx.h"
 #include "Frame.h"
 
-#include "iostream"
+//#include "iostream"
 #include<vector>
 using namespace std;
 
@@ -21,9 +21,6 @@ protected:
 	Block *block;
 	Board *board;
 	bool gameOver = false;
-
-	
-
 	vector <Object*> allObj;
 	vector <Block*> allBlocks;
 
@@ -37,5 +34,6 @@ public:
 	void onKeyUp(wxKeyEvent &event);
 	void gameIsOver();
 	void gameIsNotOver();
+	void resetBallBoard();
 };
 
