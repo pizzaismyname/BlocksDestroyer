@@ -23,8 +23,8 @@ GameWindow::GameWindow(wxFrame *parent)
 	board = new Board(700, 700, w, h, &allObj);
 	ball = new Ball(700, 680, w, h, &allObj);
 	//block = new Block(700, 360, w, h, &allObj);
-	allBlocks.push_back(new Block(700, 200, w, h, &allObj));
-	allBlocks.push_back(new Block(300, 100, w, h, &allObj));
+	allBlocks.push_back(new Block(700, 200, w, h, 1, &allObj));
+	allBlocks.push_back(new Block(300, 100, w, h, 1, &allObj));
 
 }
 
@@ -46,10 +46,21 @@ void GameWindow::onTimer(wxTimerEvent & event)
 	if (ball->isLaunched()) {
 		ball->move(this);
 		ball->checkCollision(board);
-		//ball->checkCollision(block);
-		for (auto it : allBlocks) {
-			ball->checkCollision(it);
+
+		for (auto it = allBlocks.begin(); it != allBlocks.end(); it++) {
+			ball->checkCollision(*it);
+			if (!(*it)->isAlive()) {
+				delete *it;
+				it = allBlocks.erase(it);
+				break;
+			}
 		}
+
+		if (allBlocks.empty()) {
+			timer->Stop();
+		}
+
+
 	}
 	else {
 		ball->follow(board);
@@ -63,9 +74,11 @@ void GameWindow::onPaint(wxPaintEvent & event)
 	wxBufferedPaintDC pdc(this);
 	pdc.SetBackground(wxBrush(wxColour(0, 0, 0)));
 	pdc.DrawRectangle(wxPoint(0, 0), wxSize(w, h));
+	
 	for (auto it : allBlocks) {
-		it->draw(pdc);;
+		it->draw(pdc);
 	}
+	
 	ball->draw(pdc);
 	board->draw(pdc);
 }

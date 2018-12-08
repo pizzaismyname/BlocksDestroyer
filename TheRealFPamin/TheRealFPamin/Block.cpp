@@ -1,10 +1,11 @@
 #include "Block.h"
+#include "Ball.h"
 
-
-Block::Block(int x, int y, int w, int h, vector<Object*> *allObj)
+Block::Block(int x, int y, int w, int h, int lv, vector<Object*> *allObj)
  : Object(x, y, w, h, allObj) 
 {
 	this->type = 1;
+	this->blockLv = lv;
 	vX = 0;
 	vY = 0;
 	dirX = 0;
@@ -71,8 +72,8 @@ int Block::getT()
 
 void Block::beingHit(Object * other)
 {
-	/*Ball* ball = (Ball*)other;
-	this->health -= ball->getDamage();*/
+	Ball* ball = (Ball*)other;
+	this->health -= ball->getDamage();
 }
 
 bool Block::isAlive()
