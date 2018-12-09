@@ -22,6 +22,7 @@
     <ClInclude Include="Ball.h" />
     <ClInclude Include="Block.h" />
     <ClInclude Include="Board.h" />
+    <ClInclude Include="Bullet.h" />
     <ClInclude Include="Frame.h" />
     <ClInclude Include="GameWindow.h" />
     <ClInclude Include="Level.h" />
@@ -32,6 +33,7 @@
     <ClCompile Include="Block.cpp" />
     <ClCompile Include="BlocksDestroyer.cpp" />
     <ClCompile Include="Board.cpp" />
+    <ClCompile Include="Bullet.cpp" />
     <ClCompile Include="Frame.cpp" />
     <ClCompile Include="GameWindow.cpp" />
     <ClCompile Include="Level.cpp" />

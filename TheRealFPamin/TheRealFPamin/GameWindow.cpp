@@ -3,6 +3,7 @@
 #include "Block.h"
 #include "Ball.h"
 #include "Board.h"
+#include "Level.h"
 
 BEGIN_EVENT_TABLE(GameWindow, wxWindow)
 EVT_TIMER(1000, GameWindow::onTimer)
@@ -22,9 +23,15 @@ GameWindow::GameWindow(wxFrame *parent)
 
 	board = new Board(700, 700, w, h, &allObj);
 	ball = new Ball(700, 680, w, h, &allObj);
+	bullet = new Bullet(450, 450, w, h, &allObj);
 	//block = new Block(700, 360, w, h, &allObj);
-	allBlocks.push_back(new Block(700, 200, w, h, 1, &allObj));
-	allBlocks.push_back(new Block(300, 100, w, h, 1, &allObj));
+	Level *lv = new Level(w, h);
+	
+	generateLV(lv);
+
+	//allBlocks.push_back(new Block(lv->satu.x, lv->satu.y, lv->satu.l, lv->satu.t, lv->satu.w, lv->satu.h, lv->satu.lv, &allObj));
+	/*allBlocks.push_back(new Block(700, 200, 500, 200, w, h, 3, &allObj));*/
+	//allBlocks.push_back(new Block(300, 100, 300, 200, w, h, 1, &allObj));
 
 }
 
@@ -78,7 +85,7 @@ void GameWindow::onPaint(wxPaintEvent & event)
 	for (auto it : allBlocks) {
 		it->draw(pdc);
 	}
-	
+	bullet->draw(pdc);
 	ball->draw(pdc);
 	board->draw(pdc);
 }
@@ -98,6 +105,10 @@ void GameWindow::onKeyDown(wxKeyEvent & event)
 		if (!ball->isLaunched()) {
 			ball->launch();
 		}
+		else {
+			board->shoot();
+		}
+
 		break;
 	}
 }
@@ -124,9 +135,11 @@ void GameWindow::gameIsOver() {
 	if (board->isAlive()) {
 		board->setHealth(board->getHealth() - 1);
 		resetBallBoard();
+		return;
 	}
 	
 	gameOver = true;
+	timer->Stop();
 }
 void GameWindow::gameIsNotOver() {
 
@@ -140,5 +153,12 @@ void GameWindow::resetBallBoard()
 	ball->setY(700);
 	board->setX(700);
 	board->setY(680);
+}
+
+void GameWindow::generateLV(Level *lv)
+{	
+	for (auto it : lv->blocks) {
+		allBlocks.push_back(new Block(it.x, it.y, it.l, it.t, it.w, it.h, it.lv, &allObj));
+	}
 }
 

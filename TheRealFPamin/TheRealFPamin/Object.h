@@ -7,7 +7,7 @@
 
 using namespace std;
 
-class Object
+class Object : public wxEvtHandler
 {
 protected:
 	int x, y, vX, vY, dirX, dirY, maxX, maxY, r, g, b, type;

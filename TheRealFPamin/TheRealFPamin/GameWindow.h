@@ -1,7 +1,7 @@
 #pragma once
 #include "wx\wx.h"
 #include "Frame.h"
-
+#include "Bullet.h"
 //#include "iostream"
 #include<vector>
 using namespace std;
@@ -10,6 +10,8 @@ class Ball;
 class Block;
 class Board;
 class Object;
+class Level;
+class Bullet;
 
 class GameWindow :
 	public wxWindow
@@ -20,9 +22,11 @@ protected:
 	Ball *ball;
 	Block *block;
 	Board *board;
+	Bullet *bullet;
 	bool gameOver = false;
 	vector <Object*> allObj;
 	vector <Block*> allBlocks;
+	vector <Bullet*> allBullets;
 
 	DECLARE_EVENT_TABLE()
 public:
@@ -35,5 +39,6 @@ public:
 	void gameIsOver();
 	void gameIsNotOver();
 	void resetBallBoard();
+	void generateLV(Level *lv);
 };
 
