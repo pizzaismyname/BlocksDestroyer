@@ -27,6 +27,7 @@
     <ClInclude Include="GameWindow.h" />
     <ClInclude Include="Level.h" />
     <ClInclude Include="Object.h" />
+    <ClInclude Include="PowerUp.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Ball.cpp" />
@@ -38,6 +39,7 @@
     <ClCompile Include="GameWindow.cpp" />
     <ClCompile Include="Level.cpp" />
     <ClCompile Include="Object.cpp" />
+    <ClCompile Include="PowerUp.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>

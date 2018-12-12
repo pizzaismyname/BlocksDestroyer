@@ -1,14 +1,19 @@
 #include "Board.h"
 #include "wx\stdpaths.h"
 #include "wx\filename.h"
+#include "Bullet.h"
+
 
 BEGIN_EVENT_TABLE(Board, Object)
 	EVT_TIMER(1501, Board::onTimer)
+	EVT_TIMER(1502, Board::onTimer2)
+	EVT_TIMER(1503, Board::onPwrUpTimer)
 END_EVENT_TABLE()
 
 
 void Board::loadBitmap()
 {
+	wxLogNull nolog;
 	wxImage image(wxT("assets\\50-Breakout-Tiles.png"), wxBITMAP_TYPE_PNG);
 	image.Rescale(121, 32, wxIMAGE_QUALITY_NORMAL);
 	board1 = new wxBitmap(image);
@@ -23,8 +28,8 @@ void Board::loadBitmap()
 	board3 = new wxBitmap(image3);
 }
 
-Board::Board(int x, int y, int w, int h, vector<Object*> *allObj)
-	: Object(x, y, w, h, allObj)
+Board::Board(int x, int y, int w, int h, vector<Object*> *allObj, vector<Bullet*> *allBullets)
+	: Object(x, y, w, h, allObj), allBullets(allBullets)
 {
 	type = 3;
 	l = 100;
@@ -37,6 +42,11 @@ Board::Board(int x, int y, int w, int h, vector<Object*> *allObj)
 	loadBitmap();
 	timer = new wxTimer(this, 1501);
 	timer->Start(100);
+	timer2 = new wxTimer(this, 1502);
+
+	pwrUpTimer = new wxTimer(this, 1503);
+
+	
 }
 
 int Board::getHealth()
@@ -83,14 +93,14 @@ void Board::move()
 {
 	if (vX != 0) {
 
-		if (this->x - l / 2 - (this->vX) <= 8) {
+		if (this->x - l / 2 - (this->vX) * reverse <= 8) {
 			this->x += 1;
 		}
-		else if (this->x + l / 2 + (this->vX) >= maxX) {
+		else if (this->x + l / 2 + (this->vX) * reverse >= maxX) {
 			this->x -= 1;
 		}
 		else {
-			this->x += (this->vX);
+			this->x += (this->vX) * reverse;
 		}
 	}
 }
@@ -110,9 +120,26 @@ void Board::stopMove()
 	vX = 0;
 }
 
-void Board::beingHit()
-{
+void Board::beingHit(Object * other)
+{		
+	
 }
+
+void Board::poweredUp(int x)
+{	
+	switch (x) {
+	case 1 :
+		reverse = -1;
+		pwrUpTimer->StartOnce(5000);
+		break;
+	case 2:
+		break;
+	case 3:
+		break;
+	}
+	
+}
+
 
 void Board::onTimer(wxTimerEvent & event)
 {
@@ -131,7 +158,54 @@ void Board::onTimer(wxTimerEvent & event)
 	}
 }
 
-void Board::shoot()
+void Board::onTimer2(wxTimerEvent & event)
 {
+	shoot();
+}
 
+void Board::onPwrUpTimer(wxTimerEvent & event)
+{
+	reverse = 1;
+}
+
+int Board::getL()
+{
+	return l;
+}
+
+int Board::getT()
+{
+	return t;
+}
+
+
+
+void Board::shoot()
+{	
+	static int counter = 1;
+	if (counter == 1) {
+		bullet = new Bullet(x - l / 2, y, maxX, maxY, allObj);
+		counter = 2;
+	}
+	else {
+		bullet = new Bullet(x + l / 2, y, maxX, maxY, allObj);
+		counter = 1;
+	}
+
+	allBullets->push_back(bullet);
+}
+
+void Board::activateGun() {
+	if (!gunActive) {
+		timer2->Start(350);
+		gunActive = true;
+	}
+}
+
+void Board::deactivateGun() {
+	if (gunActive) {
+		timer2->Stop();
+		gunActive = false;
+	}
+	
 }

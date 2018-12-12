@@ -21,9 +21,10 @@ GameWindow::GameWindow(wxFrame *parent)
 	timer = new wxTimer(this, 1000);
 	timer->Start(1);
 
-	board = new Board(700, 700, w, h, &allObj);
+	board = new Board(700, 700, w, h, &allObj, &allBullets);
 	ball = new Ball(700, 680, w, h, &allObj);
 	bullet = new Bullet(450, 450, w, h, &allObj);
+//	allPowerUps.push_back(new PowerUp(550, 450, w, h, &allObj));
 	//block = new Block(700, 360, w, h, &allObj);
 	Level *lv = new Level(w, h);
 	
@@ -39,10 +40,18 @@ GameWindow::GameWindow(wxFrame *parent)
 GameWindow::~GameWindow()
 {
 	delete timer;
-	//delete block;
 	for (auto it : allBlocks) {
 		delete it;
 	}
+
+	for (auto it : allBullets) {
+		delete it;
+	}
+
+	for (auto it : allPowerUps) {
+		delete it;
+	}
+
 	delete ball;
 	delete board;
 }
@@ -54,6 +63,13 @@ void GameWindow::onTimer(wxTimerEvent & event)
 		ball->move(this);
 		ball->checkCollision(board);
 
+		for (auto it : allBullets) {
+			for (auto it2 : allBlocks) {
+				it->checkCollision(it2);
+			}
+		}
+
+
 		for (auto it = allBlocks.begin(); it != allBlocks.end(); it++) {
 			ball->checkCollision(*it);
 			if (!(*it)->isAlive()) {
@@ -62,6 +78,16 @@ void GameWindow::onTimer(wxTimerEvent & event)
 				break;
 			}
 		}
+
+		for (auto it = allBullets.begin(); it != allBullets.end(); it++) {
+			if ((*it)->isAlive() == false) {
+				delete *it;
+				it = allBullets.erase(it);
+				break;
+			}
+		}
+
+
 
 		if (allBlocks.empty()) {
 			timer->Stop();
@@ -73,6 +99,31 @@ void GameWindow::onTimer(wxTimerEvent & event)
 		ball->follow(board);
 	}
 	board->move();
+
+	for (auto it = allPowerUps.begin(); it != allPowerUps.end(); it++) {
+		(*it)->checkCollision(board);
+		if ((*it)->isAlive() == false) {
+			delete *it;
+			it = allPowerUps.erase(it);
+			/*wxMessageBox(wxT("matiii"));*/
+			break;
+		}
+	}
+
+
+
+	if (!allBullets.empty()) {
+		for (auto it : allBullets) {
+			it->move();
+		}
+	}
+
+	if (!allPowerUps.empty()) {
+		for (auto it : allPowerUps) {
+			it->move();
+		}
+	}
+
 	Refresh(0);
 }
 
@@ -85,6 +136,20 @@ void GameWindow::onPaint(wxPaintEvent & event)
 	for (auto it : allBlocks) {
 		it->draw(pdc);
 	}
+
+	if (!allBullets.empty()) {
+		for (auto it : allBullets) {
+			it->draw(pdc);
+		}
+	}
+
+	if (!allPowerUps.empty()) {
+		for (auto it : allPowerUps) {
+			if(it->isLaunched())
+			it->draw(pdc);
+		}
+	}
+
 	bullet->draw(pdc);
 	ball->draw(pdc);
 	board->draw(pdc);
@@ -106,8 +171,10 @@ void GameWindow::onKeyDown(wxKeyEvent & event)
 			ball->launch();
 		}
 		else {
-			board->shoot();
+			board->activateGun();
 		}
+		
+		board->activateGun();
 
 		break;
 	}
@@ -125,7 +192,7 @@ void GameWindow::onKeyUp(wxKeyEvent & event)
 		board->stopMove();
 		break;
 	case ' ':
-		
+		board->deactivateGun();
 		break;
 	}
 }
@@ -158,7 +225,7 @@ void GameWindow::resetBallBoard()
 void GameWindow::generateLV(Level *lv)
 {	
 	for (auto it : lv->blocks) {
-		allBlocks.push_back(new Block(it.x, it.y, it.l, it.t, it.w, it.h, it.lv, &allObj));
+		allBlocks.push_back(new Block(it.x, it.y, it.l, it.t, it.w, it.h, it.lv, &allPowerUps, &allObj));
 	}
 }
 

@@ -16,10 +16,17 @@ protected:
 	wxBitmap *board = nullptr;
 	virtual void loadBitmap();
 	wxTimer *timer;
+	wxTimer *timer2;
+	wxTimer *pwrUpTimer;
 	Bullet *bullet;
+
+	int reverse = 1;
+
+	vector<Bullet*> *allBullets;
 	DECLARE_EVENT_TABLE()
+	friend class PowerUp;
 public:
-	Board(int x, int y, int w, int h, vector<Object*> *allObj);
+	Board(int x, int y, int w, int h, vector<Object*> *allObj, vector<Bullet*> *allBullets);
 	int getHealth();
 	void setHealth(int health);
 	bool isAlive();
@@ -28,10 +35,22 @@ public:
 	void moveLeft();
 	void moveRight();
 	void stopMove();
-	void beingHit();
+	void beingHit(Object * other);
 	void onTimer(wxTimerEvent & event);
+	void onTimer2(wxTimerEvent & event);
+	void onPwrUpTimer(wxTimerEvent & event);
+	bool isHit = false;
+	int getL();
+	int getT();
+	int powerUpType = 0;
+	void poweredUp(int x);
+	bool gunActive = false;
 
 	void shoot();
+
+	void activateGun();
+
+	void deactivateGun();
 	
 	wxBitmap getBitmap();
 	~Board();

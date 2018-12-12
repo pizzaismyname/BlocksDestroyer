@@ -39,9 +39,13 @@ void Block::loadBitmap()
 	}
 }
 
-Block::Block(int x, int y, int l, int t, int w, int h, int lv, vector<Object*> *allObj)
- : Object(x, y, w, h, allObj) 
-{
+Block::Block(int x, int y, int l, int t, int w, int h, int lv, vector <PowerUp*> *allPowerUps, vector<Object*> *allObj)
+ : Object(x, y, w, h, allObj)
+{	
+	this->powerUp = powerUp;
+	powerUp = new PowerUp(x, y, maxX, maxY, this, allObj);
+	allPowerUps->push_back(powerUp);
+	srand(time(0));
 	this->type = 1;
 	this->blockLv = lv;
 	vX = 0;
@@ -66,6 +70,8 @@ Block::Block(int x, int y, int l, int t, int w, int h, int lv, vector<Object*> *
 		b = 100;
 	}
 	this->health = lv;
+
+	//this->r = randNum(0, 255);
 
 	this->loadBitmap();
 }
@@ -100,14 +106,22 @@ int Block::getT()
 
 void Block::beingHit(Object * other)
 {
+	static int a = 0;
 	Ball* ball = (Ball*)other;
 	this->health -= ball->getDamage();
+	if (getRandNum(5) == 1) {
+		launchPwrUp();
+	}
 	
 }
 
 bool Block::isAlive()
 {
-	if (health <= 0) return false;
+	if (health <= 0) { 
+		if (powerUp != nullptr && powerUp->launched == false) powerUp->alive=false;
+		return false;
+	
+	}
 	return true;
 
 }
@@ -122,6 +136,11 @@ void Block::draw(wxBufferedPaintDC &pdc)
 	pdc.DrawBitmap(getBitmap(), wxPoint(x - l / 2, y - t / 2), true);
 }
 
+void Block::launchPwrUp()
+{
+	powerUp->launch();
+}
+
 wxBitmap Block::getBitmap()
 {	
 	if (health == 1) {
@@ -129,5 +148,15 @@ wxBitmap Block::getBitmap()
 	}
 	
 	return *block;
-	
 }
+
+int Block::getRandNum(int x)
+{
+	srand((unsigned)time(0));
+	int i;
+	i = (rand() % x) + 1;
+	return i;
+}
+
+
+

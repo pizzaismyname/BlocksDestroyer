@@ -1,19 +1,17 @@
 #include "Bullet.h"
 #include "Board.h"
 #include "Object.h"
+#include "Block.h"
 
-BEGIN_EVENT_TABLE(Bullet, Object)
-	EVT_TIMER(1004, Bullet::onTimer)
-END_EVENT_TABLE()
 
 
 void Bullet::loadBitmap()
-{
+{	
+	wxLogNull nolog;
 	wxImage image(wxT("assets\\61-Breakout-Tiles.png"), wxBITMAP_TYPE_PNG);
 	image.Rescale(5, 10, wxIMAGE_QUALITY_NORMAL);
 	bullet = new wxBitmap(image);
 
-	
 }
 
 Bullet::Bullet(int x, int y, int w, int h, vector<Object*> *allObj)
@@ -28,7 +26,6 @@ Bullet::Bullet(int x, int y, int w, int h, vector<Object*> *allObj)
 	this->t = t;
 	l = 5;
 	t = 10;
-	
 	
 	loadBitmap();
 
@@ -45,7 +42,7 @@ Bullet::~Bullet()
 void Bullet::move()
 {
 	this->y += (this->vY * this->dirY);
-	if (this->y + r >= maxY) {
+	if (this->y + (this->vY * this->dirY) <= 0) {
 		alive = false;
 	}
 }
@@ -66,9 +63,27 @@ void Bullet::draw(wxBufferedPaintDC &pdc)
 	pdc.DrawBitmap(getBitmap(), wxPoint(x - l / 2, y - t / 2), true);
 }
 
-void Bullet::onTimer(wxTimerEvent & event)
+
+
+int Bullet::checkCollision(Object * other)
 {
-	move();
+	if (other->getType() == 1){
+
+		Block* that = (Block*)other;
+
+		int kananBalok = that->getX() + that->getL() / 2;
+		int kiriBalok = that->getX() - that->getL() / 2;
+		int atasBalok = that->getY() - that->getT() / 2;
+		int bawahBalok = that->getY() + that->getT() / 2;
+
+		int atasPeluru = y - t / 2;
+
+		if (atasPeluru<= bawahBalok && y >= bawahBalok && x >= kiriBalok && x <= kananBalok) {
+			that->beingHit(this);
+			alive = false;
+
+			return 0;
+		}
+	}
+	return 0;
 }
-
-

@@ -2,6 +2,7 @@
 #include "wx\wx.h"
 #include "Frame.h"
 #include "Bullet.h"
+#include "PowerUp.h"
 //#include "iostream"
 #include<vector>
 using namespace std;
@@ -12,6 +13,7 @@ class Board;
 class Object;
 class Level;
 class Bullet;
+class PowerUp;
 
 class GameWindow :
 	public wxWindow
@@ -23,10 +25,12 @@ protected:
 	Block *block;
 	Board *board;
 	Bullet *bullet;
+	PowerUp *powerUp;
 	bool gameOver = false;
 	vector <Object*> allObj;
 	vector <Block*> allBlocks;
-	vector <Bullet*> allBullets;
+	vector <Bullet*> allBullets; 
+	vector <PowerUp*> allPowerUps;
 
 	DECLARE_EVENT_TABLE()
 public:
