@@ -78,7 +78,7 @@ Level::Level(int w, int h)
 	blocks.push_back(satu);
 
 	satu.x = 100;
-	satu.y =404;
+	satu.y = 404;
 	satu.l = 100;
 	satu.t = 50;
 	satu.w = w;
