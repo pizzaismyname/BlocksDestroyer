@@ -18,14 +18,14 @@ private:
 	wxBitmap *bullet = nullptr;
 	void loadBitmap();
 	Block *block;
-	
+	int *score;
 	wxTimer *timer;
 	DECLARE_EVENT_TABLE()
 	bool launched = false;
 	
 	friend class Block;
 public:
-	PowerUp(int x, int y, int w, int h, Block *block, vector<Object*> *allObj);
+	PowerUp(int x, int y, int w, int h, int *score ,Block *block, vector<Object*> *allObj);
 	~PowerUp();
 	virtual void move();
 	bool isAlive();

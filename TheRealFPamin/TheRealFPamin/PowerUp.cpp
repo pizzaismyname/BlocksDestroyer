@@ -17,9 +17,10 @@ void PowerUp::loadBitmap()
 
 }
 
-PowerUp::PowerUp(int x, int y, int w, int h, Block *block, vector<Object*> *allObj)
+PowerUp::PowerUp(int x, int y, int w, int h, int *score ,Block *block, vector<Object*> *allObj)
 	:Object(x, y, w, h, allObj)
 {	
+	this->score = score;
 	this->block = block;
 	this->type = 4;
 	vX = 0;
@@ -99,12 +100,14 @@ int PowerUp::checkCollision(Object * other)
 				alreadyHit = true;
 				alive = false;
 				that->poweredUp(getRandNum(2));
+				*score += 150;
 				return 0;
 			}
 			if (bawahPeluru >= atasBalok && y <= atasBalok && x >= kiriBalok && x <= kananBalok) {
 				alreadyHit = true;
 				alive = false;
 				that->poweredUp(getRandNum(2));
+				*score += 150;
 				return 0;
 			}
 		}

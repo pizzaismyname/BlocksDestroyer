@@ -13,9 +13,10 @@ void Bullet::loadBitmap()
 	bullet = new wxBitmap(image);
 }
 
-Bullet::Bullet(int x, int y, int w, int h, vector<Object*> *allObj)
+Bullet::Bullet(int x, int y, int w, int h, int * score, vector<Object*> *allObj)
 	:Object(x, y, w, h, allObj)
-{
+{	
+	this->score = score;
 	this->type = 4;
 	vX = 0;
 	vY = 1;
@@ -77,9 +78,15 @@ int Bullet::checkCollision(Object * other)
 
 		if (atasPeluru<= bawahBalok && y >= bawahBalok && x >= kiriBalok && x <= kananBalok) {
 			that->beingHit(this);
+			*score += 50;
 			alive = false;
 			return 0;
 		}
 	}
 	return 0;
+}
+
+int Bullet::getDamage()
+{
+	return damage;
 }

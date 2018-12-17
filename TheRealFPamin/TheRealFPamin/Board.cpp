@@ -29,9 +29,10 @@ void Board::loadBitmap()
 	board3 = new wxBitmap(image3);
 }
 
-Board::Board(int x, int y, int w, int h, vector<Object*> *allObj, vector<Bullet*> *allBullets)
+Board::Board(int x, int y, int w, int h, int *score, vector<Object*> *allObj, vector<Bullet*> *allBullets)
 	: Object(x, y, w, h, allObj), allBullets(allBullets)
-{
+{	
+	this->score = score;
 	type = 3;
 	l = 121;
 	t = 32;
@@ -197,11 +198,11 @@ void Board::shoot()
 {	
 	static int counter = 1;
 	if (counter == 1) {
-		bullet = new Bullet(x - l / 2, y, maxX, maxY, allObj);
+		bullet = new Bullet(x - l / 2, y, maxX, maxY, score, allObj);
 		counter = 2;
 	}
 	else {
-		bullet = new Bullet(x + l / 2, y, maxX, maxY, allObj);
+		bullet = new Bullet(x + l / 2, y, maxX, maxY, score, allObj);
 		counter = 1;
 	}
 

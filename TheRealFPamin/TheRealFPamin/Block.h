@@ -23,9 +23,10 @@ protected:
 	wxBitmap *weekBlock = nullptr;
 	virtual void loadBitmap();
 	int getRandNum(int x);
+	int * score;
 public:
 	
-	Block(int x, int y, int l, int t, int w, int h, int lv, vector <PowerUp*> *allPowerUps, vector<Object*> *allObj);
+	Block(int x, int y, int l, int t, int w, int h, int lv, int *score,vector <PowerUp*> *allPowerUps, vector<Object*> *allObj);
 	~Block();
 	void check();
 	int checkCollision(Object* other);

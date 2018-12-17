@@ -21,14 +21,12 @@ GameWindow::GameWindow(wxFrame *parent)
 	timer = new wxTimer(this, 1000);
 	timer->Start(1);
 
-	board = new Board(700, 700, w, h, &allObj, &allBullets);
-	ball = new Ball(700, 680, w, h, &allObj);
+	board = new Board(700, 700, w, h, &score ,&allObj, &allBullets);
+	ball = new Ball(700, 680, w, h, &score, &allObj);
 	Level *lv = new Level(w, h);
 	
 	generateLV(lv);
 	SetFocus();
-	
-
 }
 
 
@@ -216,7 +214,7 @@ void GameWindow::resetBallBoard()
 void GameWindow::generateLV(Level *lv)
 {	
 	for (auto it : lv->blocks) {
-		allBlocks.push_back(new Block(it.x, it.y, it.l, it.t, it.w, it.h, it.lv, &allPowerUps, &allObj));
+		allBlocks.push_back(new Block(it.x, it.y, it.l, it.t, it.w, it.h, it.lv, &score ,&allPowerUps, &allObj));
 	}
 }
 

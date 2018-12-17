@@ -4,7 +4,7 @@
 #include "GameWindow.h"
 
 
-Ball::Ball(int x, int y, int w, int h, vector<Object*> *allObj)
+Ball::Ball(int x, int y, int w, int h, int *score, vector<Object*> *allObj)
 	: Object(x, y, w, h, allObj)
 {
 	this->r = 10;
@@ -13,6 +13,7 @@ Ball::Ball(int x, int y, int w, int h, vector<Object*> *allObj)
 	vY = 3;
 	dirX = 1;
 	dirY = -1;
+	this->score = score;
 }
 
 
@@ -101,21 +102,25 @@ int Ball::checkCollision(Object * other)
 		if (kananBola >= kiriBalok && this->getX() <= kiriBalok && this->getY() >= atasBalok && this->getY() <= bawahBalok) {
 			changeDirX();
 			that->beingHit(this);
+			*score += 100;
 			return 0;
 		}
 		else if (kiriBola <= kananBalok && this->getX() >= kananBalok && this->getY() >= atasBalok && this->getY() <= bawahBalok) {
 			changeDirX();
 			that->beingHit(this);
+			*score += 100;
 			return 0;
 		}
 		else if (atasBola <= bawahBalok && this->getY() >= bawahBalok && this->getX() >= kiriBalok && this->getX() <= kananBalok) {
 			changeDirY();
 			that->beingHit(this);
+			*score += 100;
 			return 0;
 		}
 		else if (bawahBola >= atasBalok && this->getY() <= atasBalok && this->getX() >= kiriBalok && this->getX() <= kananBalok) {
 			changeDirY();
 			that->beingHit(this);
+			*score += 100;
 			return 0;
 		}
 		else {

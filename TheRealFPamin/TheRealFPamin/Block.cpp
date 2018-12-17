@@ -39,11 +39,12 @@ void Block::loadBitmap()
 	}
 }
 
-Block::Block(int x, int y, int l, int t, int w, int h, int lv, vector <PowerUp*> *allPowerUps, vector<Object*> *allObj)
+Block::Block(int x, int y, int l, int t, int w, int h, int lv, int *score, vector <PowerUp*> *allPowerUps, vector<Object*> *allObj)
  : Object(x, y, w, h, allObj)
 {	
+	this->score = score;
 	//this->powerUp = powerUp;
-	powerUp = new PowerUp(x, y, maxX, maxY, this, allObj);
+	powerUp = new PowerUp(x, y, maxX, maxY, score, this, allObj);
 	allPowerUps->push_back(powerUp);
 	srand(time(0));
 	this->type = 1;
@@ -82,13 +83,14 @@ int Block::getT()
 }
 
 void Block::beingHit(Object * other)
-{
+{	
 	static int a = 0;
 	Ball* ball = (Ball*)other;
 	health -= ball->getDamage();
 	if (getRandNum(5) == 1) {
 		launchPwrUp();
 	}
+	return;
 }
 
 bool Block::isAlive()

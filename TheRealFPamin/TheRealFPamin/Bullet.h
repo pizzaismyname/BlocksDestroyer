@@ -14,15 +14,16 @@ private:
 	void loadBitmap();
 	bool launched = false;
 	wxTimer *timer;
+	int *score;
 
 public:
-	Bullet(int x, int y, int w, int h, vector<Object*> *allObj);
+	Bullet(int x, int y, int w, int h, int *score, vector<Object*> *allObj);
 	~Bullet();
 	virtual void move();
 	bool isAlive();
 	wxBitmap getBitmap();
 	void draw(wxBufferedPaintDC & pdc);
-	
+	int getDamage();
 	void onTimer(wxTimerEvent &event);
 	int checkCollision(Object * other);
 };

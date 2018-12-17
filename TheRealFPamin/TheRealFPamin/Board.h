@@ -20,14 +20,14 @@ protected:
 	wxTimer *revControlTimer;
 	wxTimer *shootSkillTimer;
 	Bullet *bullet;
-
+	int *score;
 	int reverse = 1;
 
 	vector<Bullet*> *allBullets;
 	DECLARE_EVENT_TABLE()
 	friend class PowerUp;
 public:
-	Board(int x, int y, int w, int h, vector<Object*> *allObj, vector<Bullet*> *allBullets);
+	Board(int x, int y, int w, int h, int *score,vector<Object*> *allObj, vector<Bullet*> *allBullets);
 	int getHealth();
 	void setHealth(int health);
 	bool isAlive();

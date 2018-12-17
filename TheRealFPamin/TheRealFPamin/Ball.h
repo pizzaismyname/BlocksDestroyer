@@ -13,8 +13,9 @@ private:
 	bool launched = false;
 	vector<Object*> *allObj;
 	int damage = 1;
+	int *score;
 public:
-	Ball(int x, int y, int w, int h, vector<Object*> *allObj);
+	Ball(int x, int y, int w, int h, int *score, vector<Object*> *allObj);
 
 	~Ball();
 	void draw(wxBufferedPaintDC &pdc);
