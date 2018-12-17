@@ -79,7 +79,6 @@ int PowerUp::getRandNum(int x)
 
 void PowerUp::onTimer(wxTimerEvent & event)
 {
-	//move();
 }
 
 int PowerUp::checkCollision(Object * other)
@@ -99,16 +98,13 @@ int PowerUp::checkCollision(Object * other)
 			if (atasPeluru <= bawahBalok && y >= bawahBalok && x >= kiriBalok && x <= kananBalok) {
 				alreadyHit = true;
 				alive = false;
-				that->poweredUp(getRandNum(1));
-				
+				that->poweredUp(getRandNum(2));
 				return 0;
 			}
 			if (bawahPeluru >= atasBalok && y <= atasBalok && x >= kiriBalok && x <= kananBalok) {
 				alreadyHit = true;
 				alive = false;
-				that->poweredUp(getRandNum(1));
-				
-				
+				that->poweredUp(getRandNum(2));
 				return 0;
 			}
 		}
@@ -121,8 +117,6 @@ void PowerUp::follow()
 	x = block->getX();
 	y = block->getY();
 }
-
-
 
 bool PowerUp::isLaunched()
 {

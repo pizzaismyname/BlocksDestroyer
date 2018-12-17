@@ -38,7 +38,4 @@ public:
 	void draw(wxBufferedPaintDC &pdc);
 	void launchPwrUp();
 	wxBitmap getBitmap();
-
-	
-
 };

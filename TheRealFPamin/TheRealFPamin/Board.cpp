@@ -84,10 +84,6 @@ Board::~Board()
 
 void Board::draw(wxBufferedPaintDC & pdc)
 {
-	/*pdc.SetBrush(wxBrush(wxColour(r, g, b)));
-	pdc.SetPen(wxPen(wxColour(r, g, b)));
-	pdc.DrawRectangle(this->x - l / 2, this->y - t / 2, l, t);*/
-
 	pdc.DrawBitmap(getBitmap(), wxPoint(x - l / 2, y - t / 2), true);
 }
 
@@ -124,7 +120,7 @@ void Board::stopMove()
 
 void Board::beingHit(Object * other)
 {		
-	
+	return;
 }
 
 void Board::poweredUp(int x)

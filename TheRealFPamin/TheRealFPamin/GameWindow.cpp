@@ -23,16 +23,11 @@ GameWindow::GameWindow(wxFrame *parent)
 
 	board = new Board(700, 700, w, h, &allObj, &allBullets);
 	ball = new Ball(700, 680, w, h, &allObj);
-	bullet = new Bullet(450, 450, w, h, &allObj);
-//	allPowerUps.push_back(new PowerUp(550, 450, w, h, &allObj));
-	//block = new Block(700, 360, w, h, &allObj);
 	Level *lv = new Level(w, h);
 	
 	generateLV(lv);
 	SetFocus();
-	//allBlocks.push_back(new Block(lv->satu.x, lv->satu.y, lv->satu.l, lv->satu.t, lv->satu.w, lv->satu.h, lv->satu.lv, &allObj));
-	/*allBlocks.push_back(new Block(700, 200, 500, 200, w, h, 3, &allObj));*/
-	//allBlocks.push_back(new Block(300, 100, 300, 200, w, h, 1, &allObj));
+	
 
 }
 
@@ -87,30 +82,23 @@ void GameWindow::onTimer(wxTimerEvent & event)
 			}
 		}
 
-
-
 		if (allBlocks.empty()) {
 			timer->Stop();
 		}
-
-
 	}
 	else {
 		ball->follow(board);
 	}
 	board->move();
-
+	
 	for (auto it = allPowerUps.begin(); it != allPowerUps.end(); it++) {
 		(*it)->checkCollision(board);
 		if ((*it)->isAlive() == false) {
 			delete *it;
 			it = allPowerUps.erase(it);
-			/*wxMessageBox(wxT("matiii"));*/
 			break;
 		}
 	}
-
-
 
 	if (!allBullets.empty()) {
 		for (auto it : allBullets) {
@@ -150,7 +138,6 @@ void GameWindow::onPaint(wxPaintEvent & event)
 		}
 	}
 
-	bullet->draw(pdc);
 	ball->draw(pdc);
 	board->draw(pdc);
 
@@ -181,9 +168,6 @@ void GameWindow::onKeyDown(wxKeyEvent & event)
 		else {
 			board->activateGun();
 		}
-		
-		board->activateGun();
-
 		break;
 	}
 }
@@ -217,7 +201,6 @@ void GameWindow::gameIsOver() {
 	timer->Stop();
 }
 void GameWindow::gameIsNotOver() {
-
 	gameOver = false;
 }
 
@@ -233,13 +216,7 @@ void GameWindow::resetBallBoard()
 void GameWindow::generateLV(Level *lv)
 {	
 	for (auto it : lv->blocks) {
-		
-		
 		allBlocks.push_back(new Block(it.x, it.y, it.l, it.t, it.w, it.h, it.lv, &allPowerUps, &allObj));
 	}
-
-	
-
-
 }
 

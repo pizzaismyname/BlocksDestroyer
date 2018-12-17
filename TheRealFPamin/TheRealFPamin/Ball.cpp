@@ -79,11 +79,12 @@ void Ball::check()
 }
 
 int Ball::checkCollision(Object * other)
-{
-	if (other->getType() == 1 || other->getType() == 3) {
+{	
+
+
+	if (other->getType() == 1) {
 		
 		Block* that = (Block*)other;
-
 
 		int kananBola = this->getX() + r;
 		int kiriBola = this->getX() - r;
@@ -100,29 +101,21 @@ int Ball::checkCollision(Object * other)
 		if (kananBola >= kiriBalok && this->getX() <= kiriBalok && this->getY() >= atasBalok && this->getY() <= bawahBalok) {
 			changeDirX();
 			that->beingHit(this);
-			/*that->setSkip(this);
-			this->setSkip(other);*/
 			return 0;
 		}
 		else if (kiriBola <= kananBalok && this->getX() >= kananBalok && this->getY() >= atasBalok && this->getY() <= bawahBalok) {
 			changeDirX();
 			that->beingHit(this);
-			/*that->setSkip(this);
-			this->setSkip(other);*/
 			return 0;
 		}
 		else if (atasBola <= bawahBalok && this->getY() >= bawahBalok && this->getX() >= kiriBalok && this->getX() <= kananBalok) {
 			changeDirY();
 			that->beingHit(this);
-			/*that->setSkip(this);
-			this->setSkip(other);*/
 			return 0;
 		}
 		else if (bawahBola >= atasBalok && this->getY() <= atasBalok && this->getX() >= kiriBalok && this->getX() <= kananBalok) {
 			changeDirY();
 			that->beingHit(this);
-			/*that->setSkip(this);
-			this->setSkip(other);*/
 			return 0;
 		}
 		else {
@@ -136,8 +129,6 @@ int Ball::checkCollision(Object * other)
 				this->y -= 5;
 				changeDirY();
 				changeDirX();
-				/*that->setSkip(this);
-				this->setSkip(other);*/
 				that->beingHit(this);
 
 				return 0;
@@ -147,8 +138,6 @@ int Ball::checkCollision(Object * other)
 				this->y -= 5;
 				changeDirY();
 				changeDirX();
-				/*that->setSkip(this);
-				this->setSkip(other);*/
 				that->beingHit(this);
 
 				return 0;
@@ -158,8 +147,6 @@ int Ball::checkCollision(Object * other)
 				this->y += 5;
 				changeDirY();
 				changeDirX();
-				/*that->setSkip(this);
-				this->setSkip(other);*/
 				that->beingHit(this);
 
 				return 0;
@@ -169,10 +156,86 @@ int Ball::checkCollision(Object * other)
 				this->y += 5;
 				changeDirY();
 				changeDirX();
-				/*that->setSkip(this);
-				this->setSkip(other);*/
+				that->beingHit(this);
+				return 0;
+			}
+		}
+
+	}
+	if (other->getType() == 3) {
+		Board* that = (Board*)other;
+
+		int kananBola = this->getX() + r;
+		int kiriBola = this->getX() - r;
+		int bawahBola = this->getY() + r;
+		int atasBola = this->getY() - r;
+
+		int kananBalok = that->getX() + that->getL() / 2;
+		int kiriBalok = that->getX() - that->getL() / 2;
+		int atasBalok = that->getY() - that->getT() / 2;
+		int bawahBalok = that->getY() + that->getT() / 2;
+
+
+
+		if (kananBola >= kiriBalok && this->getX() <= kiriBalok && this->getY() >= atasBalok && this->getY() <= bawahBalok) {
+			changeDirX();
+			that->beingHit(this);
+			return 0;
+		}
+		else if (kiriBola <= kananBalok && this->getX() >= kananBalok && this->getY() >= atasBalok && this->getY() <= bawahBalok) {
+			changeDirX();
+			that->beingHit(this);
+			return 0;
+		}
+		else if (atasBola <= bawahBalok && this->getY() >= bawahBalok && this->getX() >= kiriBalok && this->getX() <= kananBalok) {
+			changeDirY();
+			that->beingHit(this);
+			return 0;
+		}
+		else if (bawahBola >= atasBalok && this->getY() <= atasBalok && this->getX() >= kiriBalok && this->getX() <= kananBalok) {
+			changeDirY();
+			that->beingHit(this);
+			return 0;
+		}
+		else {
+			double kiat = this->distance(kiriBalok, atasBalok);
+			double kaat = this->distance(kananBalok, atasBalok);
+			double kiba = this->distance(kiriBalok, bawahBalok);
+			double kaba = this->distance(kananBalok, bawahBalok);
+
+			if (kiat <= (double)this->r) {
+				this->x -= 5;
+				this->y -= 5;
+				changeDirY();
+				changeDirX();
 				that->beingHit(this);
 
+				return 0;
+			}
+			else if (kaat <= (double)this->r) {
+				this->x += 5;
+				this->y -= 5;
+				changeDirY();
+				changeDirX();
+				that->beingHit(this);
+
+				return 0;
+			}
+			else if (kiba <= (double)this->r) {
+				this->x -= 5;
+				this->y += 5;
+				changeDirY();
+				changeDirX();
+				that->beingHit(this);
+
+				return 0;
+			}
+			else if (kaba <= (double)this->r) {
+				this->x += 5;
+				this->y += 5;
+				changeDirY();
+				changeDirX();
+				that->beingHit(this);
 				return 0;
 			}
 		}

@@ -3,9 +3,6 @@
 #include "vector"
 using namespace std;
 
-//class Board;
-
-
 class Bullet :
 	public Object
 {
@@ -15,7 +12,6 @@ private:
 	bool alive = true;
 	wxBitmap *bullet = nullptr;
 	void loadBitmap();
-	//Board board;
 	bool launched = false;
 	wxTimer *timer;
 

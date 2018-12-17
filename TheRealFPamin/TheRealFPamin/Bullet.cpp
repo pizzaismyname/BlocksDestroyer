@@ -11,7 +11,6 @@ void Bullet::loadBitmap()
 	wxImage image(wxT("assets\\61-Breakout-Tiles.png"), wxBITMAP_TYPE_PNG);
 	image.Rescale(5, 10, wxIMAGE_QUALITY_NORMAL);
 	bullet = new wxBitmap(image);
-
 }
 
 Bullet::Bullet(int x, int y, int w, int h, vector<Object*> *allObj)
@@ -22,11 +21,9 @@ Bullet::Bullet(int x, int y, int w, int h, vector<Object*> *allObj)
 	vY = 1;
 	dirX = 0;
 	dirY = -1;
-	this->l = l;
-	this->t = t;
 	l = 5;
 	t = 10;
-	
+
 	loadBitmap();
 
 	timer = new wxTimer(this, 1004);
@@ -81,7 +78,6 @@ int Bullet::checkCollision(Object * other)
 		if (atasPeluru<= bawahBalok && y >= bawahBalok && x >= kiriBalok && x <= kananBalok) {
 			that->beingHit(this);
 			alive = false;
-
 			return 0;
 		}
 	}
