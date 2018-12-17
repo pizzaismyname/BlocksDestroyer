@@ -30,15 +30,18 @@ protected:
 	vector <Block*> allBlocks;
 	vector <Bullet*> allBullets; 
 	vector <PowerUp*> allPowerUps;
+	bool paused = false;
 	int score;
 
 	DECLARE_EVENT_TABLE()
 public:
+	void pauseGame();
 	GameWindow(wxFrame *parent);
 	~GameWindow();
 	void onTimer(wxTimerEvent &event);
 	void onPaint(wxPaintEvent &event);
 	void onKeyDown(wxKeyEvent &event);
+	void onChar(wxKeyEvent &event);
 	void onKeyUp(wxKeyEvent &event);
 	void gameIsOver();
 	void gameIsNotOver();

@@ -25,7 +25,9 @@
     <ClInclude Include="Bullet.h" />
     <ClInclude Include="Frame.h" />
     <ClInclude Include="GameWindow.h" />
+    <ClInclude Include="HtpWindow.h" />
     <ClInclude Include="Level.h" />
+    <ClInclude Include="MenuWindow.h" />
     <ClInclude Include="Object.h" />
     <ClInclude Include="PowerUp.h" />
   </ItemGroup>
@@ -37,7 +39,9 @@
     <ClCompile Include="Bullet.cpp" />
     <ClCompile Include="Frame.cpp" />
     <ClCompile Include="GameWindow.cpp" />
+    <ClCompile Include="HtpWindow.cpp" />
     <ClCompile Include="Level.cpp" />
+    <ClCompile Include="MenuWindow.cpp" />
     <ClCompile Include="Object.cpp" />
     <ClCompile Include="PowerUp.cpp" />
   </ItemGroup>

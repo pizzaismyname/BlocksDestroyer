@@ -1,5 +1,7 @@
 #include "Frame.h"
 #include "GameWindow.h"
+#include "MenuWindow.h"
+#include "HtpWindow.h"
 
 Frame::Frame(const wxString &title)
 	: wxFrame(NULL, -1, title)
@@ -9,7 +11,27 @@ Frame::Frame(const wxString &title)
 	wxImage::AddHandler(pngLoader);
 
 	this->ShowFullScreen(true);
+	ShowMenuWindow();
+}
+
+void Frame::ShowGameWindow()
+{	
+	//if(window!=nullptr)
+	window->Destroy();
 	window = new GameWindow(this);
+}
+
+void Frame::ShowMenuWindow()
+{	
+	if (window != nullptr)
+	window->Destroy();
+	window = new MenuWindow(this);
+}
+
+void Frame::ShowHtpWindow()
+{
+	window->Destroy();
+	window = new HtpWindow(this);
 }
 
 

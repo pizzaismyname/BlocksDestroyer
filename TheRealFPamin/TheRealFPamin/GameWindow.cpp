@@ -9,6 +9,7 @@ BEGIN_EVENT_TABLE(GameWindow, wxWindow)
 	EVT_TIMER(1000, GameWindow::onTimer)
 	EVT_PAINT(GameWindow::onPaint)
 	EVT_KEY_DOWN(GameWindow::onKeyDown)
+	EVT_KEY_DOWN(GameWindow::onChar)
 	EVT_KEY_UP(GameWindow::onKeyUp)
 END_EVENT_TABLE()
 
@@ -151,6 +152,7 @@ void GameWindow::onPaint(wxPaintEvent & event)
 void GameWindow::onKeyDown(wxKeyEvent & event)
 {
 	int key = event.GetKeyCode();
+	if (key == 27) event.Skip();
 	switch (key)
 	{
 	case 'A':
@@ -187,6 +189,14 @@ void GameWindow::onKeyUp(wxKeyEvent & event)
 	}
 }
 
+void GameWindow::onChar(wxKeyEvent & event)
+{
+	int key = event.GetKeyCode();
+		if (key == 27) {
+			wxMessageBox(wxT("wkwkwk"));
+		}
+}
+
 
 void GameWindow::gameIsOver() {
 	if (board->isAlive()) {
@@ -218,3 +228,6 @@ void GameWindow::generateLV(Level *lv)
 	}
 }
 
+void GameWindow::pauseGame() {
+
+}
