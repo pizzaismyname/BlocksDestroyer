@@ -1,2 +1,11 @@
 Debug/*
 .vs/*
+*.pdb
+*.tlog
+*.obj
+*.db
+*.ipch
+*.ilk
+*.opendb
+*.idb
+*.log

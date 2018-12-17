@@ -27,6 +27,7 @@ protected:
 	Bullet *bullet;
 	PowerUp *powerUp;
 	bool gameOver = false;
+	bool gameWin =false;
 	vector <Object*> allObj;
 	vector <Block*> allBlocks;
 	vector <Bullet*> allBullets; 
@@ -37,6 +38,8 @@ protected:
 	
 	wxBitmap *pauseScreen = nullptr;
 	wxBitmap *gameOverScreen = nullptr;
+	wxBitmap *winScreen = nullptr;
+	void winGame();
 	void loadBitmap();
 
 	wxBitmap *resumeImg = nullptr;
@@ -71,5 +74,6 @@ public:
 	void goResumeGame(wxCommandEvent &event);
 	void goMainMenu(wxCommandEvent &event);
 	void goRestart(wxCommandEvent &event);
+	void goWin(wxCommandEvent &event);
 };
 

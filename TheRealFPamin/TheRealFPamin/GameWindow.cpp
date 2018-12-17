@@ -15,6 +15,7 @@ BEGIN_EVENT_TABLE(GameWindow, wxWindow)
 	EVT_BUTTON(3001, GameWindow::goResumeGame)
 	EVT_BUTTON(3002, GameWindow::goMainMenu)
 	EVT_BUTTON(3003, GameWindow::goRestart)
+	EVT_BUTTON(3004, GameWindow::goWin)
 END_EVENT_TABLE()
 
 GameWindow::GameWindow(Frame *parent)
@@ -103,9 +104,11 @@ void GameWindow::onTimer(wxTimerEvent & event)
 				}
 			}
 
-			if (allBlocks.empty()) {
-				timer->Stop();
-			}
+			
+			/*if (allBlocks.empty()) {
+				winGame();
+				
+			}*/
 		}
 		else {
 			ball->follow(board);
@@ -144,7 +147,9 @@ void GameWindow::onTimer(wxTimerEvent & event)
 }
 
 void GameWindow::onPaint(wxPaintEvent & event)
-{
+{	
+	
+
 	if (!paused) {
 		if (gameOver) {
 			wxBufferedPaintDC pdc(this);
@@ -153,7 +158,16 @@ void GameWindow::onPaint(wxPaintEvent & event)
 			restartBtn->Show(true);
 			mainMenuBtn->Show(true);
 		}
+		else if (gameWin) {
+			wxBufferedPaintDC pdc(this);
+			pdc.DrawBitmap(*winScreen, wxPoint(0, 0), true);
+			pdc.DrawText(wxString::Format("S C O R E  :  %d ", score), wxPoint(10, 10));
+			mainMenuBtn->Show(true);
+		}
 		else {
+			if (allBlocks.empty()) {
+				winGame();
+			}
 			wxBufferedPaintDC pdc(this);
 			pdc.SetBackground(wxBrush(wxColour(0, 0, 0)));
 			pdc.DrawRectangle(wxPoint(0, 0), wxSize(w, h));
@@ -303,12 +317,22 @@ void GameWindow::pauseGame() {
 	pdc.DrawBitmap(*pauseScreen, wxPoint(0, 0), true);*/
 }
 
+
 void GameWindow::resumeGame() {
 	paused = false;
 	timer->Start();
 	
 }	
 
+
+void GameWindow::winGame()
+{	
+	timer->Stop();
+	gameWin = true;
+	timer->StartOnce();
+	timer->StartOnce();
+
+}
 
 void GameWindow::loadBitmap()
 {
@@ -336,6 +360,9 @@ void GameWindow::loadBitmap()
 
 	wxImage image8(wxT("background/5.png"), wxBITMAP_TYPE_PNG);
 	gameOverScreen = new wxBitmap(image8.Scale(w,h));
+	
+	wxImage image9(wxT("background/4.png"), wxBITMAP_TYPE_PNG);
+	winScreen = new wxBitmap(image9.Scale(w, h));
 }
 
 
@@ -349,4 +376,8 @@ void GameWindow::goMainMenu(wxCommandEvent &event) {
 
 void GameWindow::goRestart(wxCommandEvent &event) {
 	parent->ShowGameWindow();
+}
+
+void GameWindow::goWin(wxCommandEvent & event)
+{
 }
