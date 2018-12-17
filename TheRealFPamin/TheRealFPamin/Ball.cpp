@@ -9,8 +9,8 @@ Ball::Ball(int x, int y, int w, int h, vector<Object*> *allObj)
 {
 	this->r = 10;
 	this->type = 2;
-	vX = 7;
-	vY = 7;
+	vX = 3;
+	vY = 3;
 	dirX = 1;
 	dirY = -1;
 }

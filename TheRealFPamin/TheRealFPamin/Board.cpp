@@ -7,7 +7,8 @@
 BEGIN_EVENT_TABLE(Board, Object)
 	EVT_TIMER(1501, Board::onTimer)
 	EVT_TIMER(1502, Board::onTimer2)
-	EVT_TIMER(1503, Board::onPwrUpTimer)
+	EVT_TIMER(1503, Board::onRevControlTimer)
+	EVT_TIMER(1504, Board::onShootSkillTimer)
 END_EVENT_TABLE()
 
 
@@ -44,7 +45,8 @@ Board::Board(int x, int y, int w, int h, vector<Object*> *allObj, vector<Bullet*
 	timer->Start(100);
 	timer2 = new wxTimer(this, 1502);
 
-	pwrUpTimer = new wxTimer(this, 1503);
+	revControlTimer = new wxTimer(this, 1503);
+	shootSkillTimer = new wxTimer(this, 1504);
 
 	
 }
@@ -130,9 +132,11 @@ void Board::poweredUp(int x)
 	switch (x) {
 	case 1 :
 		reverse = -1;
-		pwrUpTimer->StartOnce(5000);
+		revControlTimer->StartOnce(5000);
 		break;
 	case 2:
+		skillActive = true;
+		shootSkillTimer->StartOnce(2000);
 		break;
 	case 3:
 		break;
@@ -163,9 +167,17 @@ void Board::onTimer2(wxTimerEvent & event)
 	shoot();
 }
 
-void Board::onPwrUpTimer(wxTimerEvent & event)
+void Board::onRevControlTimer(wxTimerEvent & event)
 {
 	reverse = 1;
+
+}
+
+void Board::onShootSkillTimer(wxTimerEvent & event)
+{
+	skillActive = false;
+	
+	deactivateGun();
 }
 
 int Board::getL()
@@ -179,6 +191,11 @@ int Board::getT()
 }
 
 
+
+bool Board::isSkillActive()
+{
+	return skillActive;
+}
 
 void Board::shoot()
 {	
@@ -196,6 +213,7 @@ void Board::shoot()
 }
 
 void Board::activateGun() {
+	if(skillActive)
 	if (!gunActive) {
 		timer2->Start(350);
 		gunActive = true;

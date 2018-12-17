@@ -17,7 +17,8 @@ protected:
 	virtual void loadBitmap();
 	wxTimer *timer;
 	wxTimer *timer2;
-	wxTimer *pwrUpTimer;
+	wxTimer *revControlTimer;
+	wxTimer *shootSkillTimer;
 	Bullet *bullet;
 
 	int reverse = 1;
@@ -38,14 +39,16 @@ public:
 	void beingHit(Object * other);
 	void onTimer(wxTimerEvent & event);
 	void onTimer2(wxTimerEvent & event);
-	void onPwrUpTimer(wxTimerEvent & event);
+	void onRevControlTimer(wxTimerEvent & event);
+	void onShootSkillTimer(wxTimerEvent & event);
 	bool isHit = false;
 	int getL();
 	int getT();
 	int powerUpType = 0;
 	void poweredUp(int x);
 	bool gunActive = false;
-
+	bool skillActive = false;
+	bool isSkillActive();
 	void shoot();
 
 	void activateGun();

@@ -15,6 +15,6 @@ public:
 
 	Balok satu;
 	vector <Balok> blocks;
-	
+
 };
 

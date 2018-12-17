@@ -112,7 +112,6 @@ void Block::beingHit(Object * other)
 	if (getRandNum(5) == 1) {
 		launchPwrUp();
 	}
-	
 }
 
 bool Block::isAlive()

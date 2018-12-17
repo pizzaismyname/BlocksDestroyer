@@ -31,6 +31,7 @@ protected:
 	vector <Block*> allBlocks;
 	vector <Bullet*> allBullets; 
 	vector <PowerUp*> allPowerUps;
+	int score;
 
 	DECLARE_EVENT_TABLE()
 public:

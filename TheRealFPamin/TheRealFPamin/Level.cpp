@@ -93,9 +93,11 @@ Level::Level(int w, int h)
 	satu.t = 50;
 	satu.w = w;
 	satu.h = h;
-	satu.lv = 1;
+	satu.lv = 3;
 
 	blocks.push_back(satu);
+
+
 }
 
 

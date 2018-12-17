@@ -29,7 +29,7 @@ GameWindow::GameWindow(wxFrame *parent)
 	Level *lv = new Level(w, h);
 	
 	generateLV(lv);
-
+	SetFocus();
 	//allBlocks.push_back(new Block(lv->satu.x, lv->satu.y, lv->satu.l, lv->satu.t, lv->satu.w, lv->satu.h, lv->satu.lv, &allObj));
 	/*allBlocks.push_back(new Block(700, 200, 500, 200, w, h, 3, &allObj));*/
 	//allBlocks.push_back(new Block(300, 100, 300, 200, w, h, 1, &allObj));
@@ -153,6 +153,14 @@ void GameWindow::onPaint(wxPaintEvent & event)
 	bullet->draw(pdc);
 	ball->draw(pdc);
 	board->draw(pdc);
+
+	wxFont font(18, wxFONTFAMILY_TELETYPE, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_BOLD); //default-bold
+	pdc.SetFont(font);
+	pdc.SetTextForeground(*wxBLUE);
+	pdc.DrawText(wxString::Format("S C O R E  :  %d ", score), wxPoint(10, 10));
+	pdc.DrawText(wxString::Format("H P :  %d ", board->getHealth()), wxPoint(500, 10));
+	pdc.SetTextForeground(*wxGREEN);
+	pdc.DrawText(wxString::Format("PRESS ESC TO EXIT ", board->getHealth()), wxPoint(500, 700));
 }
 
 void GameWindow::onKeyDown(wxKeyEvent & event)
@@ -225,7 +233,13 @@ void GameWindow::resetBallBoard()
 void GameWindow::generateLV(Level *lv)
 {	
 	for (auto it : lv->blocks) {
+		
+		
 		allBlocks.push_back(new Block(it.x, it.y, it.l, it.t, it.w, it.h, it.lv, &allPowerUps, &allObj));
 	}
+
+	
+
+
 }
 
