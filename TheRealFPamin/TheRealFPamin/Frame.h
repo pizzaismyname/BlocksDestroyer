@@ -15,7 +15,7 @@ public:
 	void ShowGameWindow();
 	void ShowMenuWindow();
 	void ShowHtpWindow();
-	void ShowPauseWindow();
+	void ShowCreditWindow();
 	~Frame();
 };
 

@@ -48,7 +48,7 @@
     <ClInclude Include="HtpWindow.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="PauseWindow.h">
+    <ClInclude Include="CreditWindow.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -89,7 +89,7 @@
     <ClCompile Include="HtpWindow.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="PauseWindow.cpp">
+    <ClCompile Include="CreditWindow.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

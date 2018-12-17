@@ -23,13 +23,13 @@
     <ClInclude Include="Block.h" />
     <ClInclude Include="Board.h" />
     <ClInclude Include="Bullet.h" />
+    <ClInclude Include="CreditWindow.h" />
     <ClInclude Include="Frame.h" />
     <ClInclude Include="GameWindow.h" />
     <ClInclude Include="HtpWindow.h" />
     <ClInclude Include="Level.h" />
     <ClInclude Include="MenuWindow.h" />
     <ClInclude Include="Object.h" />
-    <ClInclude Include="PauseWindow.h" />
     <ClInclude Include="PowerUp.h" />
   </ItemGroup>
   <ItemGroup>
@@ -38,13 +38,13 @@
     <ClCompile Include="BlocksDestroyer.cpp" />
     <ClCompile Include="Board.cpp" />
     <ClCompile Include="Bullet.cpp" />
+    <ClCompile Include="CreditWindow.cpp" />
     <ClCompile Include="Frame.cpp" />
     <ClCompile Include="GameWindow.cpp" />
     <ClCompile Include="HtpWindow.cpp" />
     <ClCompile Include="Level.cpp" />
     <ClCompile Include="MenuWindow.cpp" />
     <ClCompile Include="Object.cpp" />
-    <ClCompile Include="PauseWindow.cpp" />
     <ClCompile Include="PowerUp.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

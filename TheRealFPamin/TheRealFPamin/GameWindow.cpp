@@ -34,9 +34,9 @@ GameWindow::GameWindow(Frame *parent)
 	
 	loadBitmap();
 
-	resumeBtn = new wxBitmapButton(this, 3001, *resumeImg, wxPoint(800, 300), wxDefaultSize, wxBORDER_NONE);
-	mainMenuBtn = new wxBitmapButton(this, 3002, *mainMenuImg, wxPoint(100, 300), wxDefaultSize, wxBORDER_NONE);
-	restartBtn = new wxBitmapButton(this, 3003, *restartImg, wxPoint(500, 300), wxDefaultSize, wxBORDER_NONE);
+	resumeBtn = new wxBitmapButton(this, 3001, *resumeImg, wxPoint(650, 550), wxDefaultSize, wxBORDER_NONE);
+	mainMenuBtn = new wxBitmapButton(this, 3002, *mainMenuImg, wxPoint(600, 650), wxDefaultSize, wxBORDER_NONE);
+	restartBtn = new wxBitmapButton(this, 3003, *restartImg, wxPoint(710, 550), wxDefaultSize, wxBORDER_NONE);
 
 	resumeBtn->SetBitmapCurrent(*resumeHoverImg);
 	mainMenuBtn->SetBitmapCurrent(*mainMenuHoverImg);
@@ -45,6 +45,7 @@ GameWindow::GameWindow(Frame *parent)
 
 	generateLV(lv);
 	SetFocus();
+	//winGame();
 }
 
 
@@ -65,6 +66,22 @@ GameWindow::~GameWindow()
 
 	delete ball;
 	delete board;
+
+	delete pauseScreen;
+	delete gameOverScreen;
+	delete winScreen;
+	
+
+	delete resumeImg;
+	delete mainMenuImg;
+	delete resumeHoverImg;
+	delete mainMenuHoverImg;
+	delete restartImg;
+	delete restartHoverImg;
+
+	delete resumeBtn;
+	delete mainMenuBtn;
+	delete restartBtn;
 }
 
 void GameWindow::onTimer(wxTimerEvent & event)
@@ -154,14 +171,21 @@ void GameWindow::onPaint(wxPaintEvent & event)
 		if (gameOver) {
 			wxBufferedPaintDC pdc(this);
 			pdc.DrawBitmap(*gameOverScreen, wxPoint(0, 0), true);
+			wxFont font(18, wxFONTFAMILY_TELETYPE, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_BOLD); //default-bold
+			pdc.SetFont(font);
+			pdc.SetTextForeground(*wxRED);
 			pdc.DrawText(wxString::Format("S C O R E  :  %d ", score), wxPoint(10, 10));
 			restartBtn->Show(true);
 			mainMenuBtn->Show(true);
 		}
 		else if (gameWin) {
 			wxBufferedPaintDC pdc(this);
+			
 			pdc.DrawBitmap(*winScreen, wxPoint(0, 0), true);
-			pdc.DrawText(wxString::Format("S C O R E  :  %d ", score), wxPoint(10, 10));
+			wxFont font(18, wxFONTFAMILY_TELETYPE, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_BOLD); //default-bold
+			pdc.SetFont(font);
+			pdc.SetTextForeground(*wxBLUE);
+			pdc.DrawText(wxString::Format("S C O R E  :  %d ", score), wxPoint(590, 500));
 			mainMenuBtn->Show(true);
 		}
 		else {
@@ -197,8 +221,6 @@ void GameWindow::onPaint(wxPaintEvent & event)
 			pdc.SetTextForeground(*wxBLUE);
 			pdc.DrawText(wxString::Format("S C O R E  :  %d ", score), wxPoint(10, 10));
 			pdc.DrawText(wxString::Format("H P :  %d ", board->getHealth()), wxPoint(500, 10));
-			pdc.SetTextForeground(*wxGREEN);
-			pdc.DrawText(wxString::Format("PRESS ESC TO EXIT ", board->getHealth()), wxPoint(500, 700));
 
 		}
 	}
@@ -214,7 +236,7 @@ void GameWindow::onPaint(wxPaintEvent & event)
 
 void GameWindow::onKeyDown(wxKeyEvent & event)
 {
-	if (!paused) {
+	if (!paused && !gameOver && !gameWin) {
 		int key = event.GetKeyCode();
 		if (key == 27) event.Skip();
 		switch (key)

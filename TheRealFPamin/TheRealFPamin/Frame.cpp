@@ -2,12 +2,11 @@
 #include "GameWindow.h"
 #include "MenuWindow.h"
 #include "HtpWindow.h"
-#include"PauseWindow.h"
+#include "CreditWindow.h"
 
 Frame::Frame(const wxString &title)
 	: wxFrame(NULL, -1, title)
 {
-
 	wxImageHandler *pngLoader = new wxPNGHandler();
 	wxImage::AddHandler(pngLoader);
 
@@ -35,13 +34,14 @@ void Frame::ShowHtpWindow()
 	window = new HtpWindow(this);
 }
 
-
-void Frame::ShowPauseWindow()
-{	
-	window2 = new PauseWindow(this);
-	window->Show(false);
-	window2->Show(true);
+void Frame::ShowCreditWindow()
+{
+	window->Destroy();
+	window = new CreditWindow(this);
 }
+
+
+
 
 Frame::~Frame()
 {

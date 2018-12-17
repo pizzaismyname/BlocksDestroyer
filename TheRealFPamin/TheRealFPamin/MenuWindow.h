@@ -8,22 +8,25 @@ private:
 	int w, h;
 	Frame *parent;
 
-	wxBitmap *mainMenuImg = nullptr;
-	wxBitmap *mainMenuHoverImg = nullptr;
-	wxBitmap *howToPlayImg = nullptr;
-	wxBitmap *nextImg = nullptr;
-	wxBitmap *nextHoverImg = nullptr;
-	wxBitmap *prevImg = nullptr;
-	wxBitmap *prevHoverImg = nullptr;
+	wxBitmap *playImg = nullptr;
+	wxBitmap *playImg2 = nullptr;
+	wxBitmap *background = nullptr;
+	wxBitmap *htpImg = nullptr;
+	wxBitmap *htpImg2 = nullptr;
+	wxBitmap *exitImg = nullptr;
+	wxBitmap *exitImg2 = nullptr;
+	wxBitmap *creditImg = nullptr;
+	wxBitmap *creditImg2 = nullptr;
 	wxBitmap *htpPage1Img = nullptr;
 	wxBitmap *htpPage2Img = nullptr;
 	wxBitmap *htpPage3Img = nullptr;
 	wxBitmap *htpPage4Img = nullptr;
 
 	wxStaticBitmap *htpTextStatic;
-	wxBitmapButton *mainMenuBtn;
-	wxBitmapButton *nextBtn;
-	wxBitmapButton *prevBtn;
+	wxBitmapButton *playBtn;
+	wxBitmapButton *htpBtn;
+	wxBitmapButton *exitBtn;
+	wxBitmapButton *creditBtn;
 
 	int page = 1;
 	void loadBitmap();
@@ -33,9 +36,10 @@ public:
 	~MenuWindow();
 
 	void OnPaint(wxPaintEvent &event);
-	void goNextPage(wxCommandEvent &event);
-	void goPrevPage(wxCommandEvent &event);
-	void goMainMenu(wxCommandEvent &event);
+	void goHtpWindow(wxCommandEvent &event);
+	void goExit(wxCommandEvent &event);
+	void goGameWindow(wxCommandEvent &event);
+	void goCreditWindow(wxCommandEvent &event);
 	void checkPage();
 };
 

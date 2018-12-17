@@ -20,9 +20,9 @@ HtpWindow::HtpWindow(Frame *parent)
 	this->parent = parent;
 	this->loadBitmap();
 
-	nextBtn = new wxBitmapButton(this, 3001, *nextImg, wxPoint(800, 300), wxDefaultSize, wxBORDER_NONE);
-	prevBtn = new wxBitmapButton(this, 3002, *prevImg, wxPoint(100, 300), wxDefaultSize, wxBORDER_NONE);
-	mainMenuBtn = new wxBitmapButton(this, 3003, *mainMenuImg, wxPoint(380, 550), wxDefaultSize, wxBORDER_NONE);
+	nextBtn = new wxBitmapButton(this, 3001, *nextImg, wxPoint(1200, 400), wxDefaultSize, wxBORDER_NONE);
+	prevBtn = new wxBitmapButton(this, 3002, *prevImg, wxPoint(100, 400), wxDefaultSize, wxBORDER_NONE);
+	mainMenuBtn = new wxBitmapButton(this, 3003, *mainMenuImg, wxPoint(580, 670), wxDefaultSize, wxBORDER_NONE);
 
 	
 
@@ -128,10 +128,4 @@ void HtpWindow::loadBitmap()
 
 	wxImage image7(wxT("assets-menu/button_left-arrow.png"), wxBITMAP_TYPE_PNG);
 	prevHoverImg = new wxBitmap(image7);
-
-	wxImage image10(wxT("assets/htpPage3Img.jpg"), wxBITMAP_TYPE_JPEG);
-	htpPage3Img = new wxBitmap(image10.Scale(450, 450));
-
-	wxImage image11(wxT("assets/htpPage4Img.jpg"), wxBITMAP_TYPE_JPEG);
-	htpPage4Img = new wxBitmap(image10.Scale(450, 450));
 }
