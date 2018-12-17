@@ -6,10 +6,10 @@
 #include "Level.h"
 
 BEGIN_EVENT_TABLE(GameWindow, wxWindow)
-EVT_TIMER(1000, GameWindow::onTimer)
-EVT_PAINT(GameWindow::onPaint)
-EVT_KEY_DOWN(GameWindow::onKeyDown)
-EVT_KEY_UP(GameWindow::onKeyUp)
+	EVT_TIMER(1000, GameWindow::onTimer)
+	EVT_PAINT(GameWindow::onPaint)
+	EVT_KEY_DOWN(GameWindow::onKeyDown)
+	EVT_KEY_UP(GameWindow::onKeyUp)
 END_EVENT_TABLE()
 
 GameWindow::GameWindow(wxFrame *parent)
@@ -206,9 +206,9 @@ void GameWindow::resetBallBoard()
 {
 	ball->unLaunch();
 	ball->setX(700);
-	ball->setY(700);
+	ball->setY(600);
 	board->setX(700);
-	board->setY(680);
+	board->setY(700);
 }
 
 void GameWindow::generateLV(Level *lv)
