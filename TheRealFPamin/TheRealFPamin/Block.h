@@ -25,7 +25,6 @@ protected:
 	int getRandNum(int x);
 	int * score;
 public:
-	
 	Block(int x, int y, int l, int t, int w, int h, int lv, int *score,vector <PowerUp*> *allPowerUps, vector<Object*> *allObj);
 	~Block();
 	void check();

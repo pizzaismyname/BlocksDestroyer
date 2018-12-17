@@ -9,11 +9,13 @@ class Frame :
 {
 private:
 	wxWindow* window = nullptr;
+	wxWindow* window2 = nullptr;
 public:
 	Frame(const wxString &title);
 	void ShowGameWindow();
 	void ShowMenuWindow();
 	void ShowHtpWindow();
+	void ShowPauseWindow();
 	~Frame();
 };
 

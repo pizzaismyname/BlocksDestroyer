@@ -2,6 +2,7 @@
 #include "GameWindow.h"
 #include "MenuWindow.h"
 #include "HtpWindow.h"
+#include"PauseWindow.h"
 
 Frame::Frame(const wxString &title)
 	: wxFrame(NULL, -1, title)
@@ -34,6 +35,13 @@ void Frame::ShowHtpWindow()
 	window = new HtpWindow(this);
 }
 
+
+void Frame::ShowPauseWindow()
+{	
+	window2 = new PauseWindow(this);
+	window->Show(false);
+	window2->Show(true);
+}
 
 Frame::~Frame()
 {
