@@ -33,8 +33,8 @@ Board::Board(int x, int y, int w, int h, vector<Object*> *allObj, vector<Bullet*
 	: Object(x, y, w, h, allObj), allBullets(allBullets)
 {
 	type = 3;
-	l = 100;
-	t = 20;
+	l = 121;
+	t = 32;
 	vX = 0;
 	dirX = 0;
 
