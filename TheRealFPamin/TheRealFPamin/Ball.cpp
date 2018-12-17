@@ -62,7 +62,7 @@ void Ball::move(GameWindow *window)
 void Ball::follow(Board * board)
 {
 	x = board->getX();
-	y = board->getY() - 20;
+	y = board->getY() - 32;
 }
 
 
